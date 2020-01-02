@@ -1,2 +1,11 @@
 <app-header></app-header>
-<p>home works!</p>
+<div class="users">
+    <h2>Online Users</h2>
+    <div *ngFor="let username of loggedInUsers">
+        <div>
+            <i class="fa fa-circle online"></i>
+            <div class="align">{{ username }}</div>
+            <button class="align btn blue"  (click)="message(username)">Message</button>
+        </div>
+    </div>
+</div>

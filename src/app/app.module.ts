@@ -10,6 +10,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { LogoutComponent } from './logout/logout.component';
+import { ApiService } from './service/api.service';
+import { StorageModule } from '@ngx-pwa/local-storage';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,8 @@ import { LogoutComponent } from './logout/logout.component';
     HomeComponent,
     LoginComponent,
     HeaderComponent,
-    LogoutComponent
+    LogoutComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -25,9 +29,10 @@ import { LogoutComponent } from './logout/logout.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StorageModule.forRoot({ IDBNoWrap: true })
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

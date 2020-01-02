@@ -13,11 +13,12 @@ export class LogoutComponent implements OnInit {
     private router: Router,
     private apiService: ApiService
   ) {
-    apiService.logout();
-    this.router.navigate(['/login']);
   }
 
   ngOnInit() {
+    this.apiService.logout(sessionStorage.getItem('username'));
+    sessionStorage.removeItem('username');
+    this.router.navigate(['/login']);
   }
 
 }

@@ -1,68 +1,72 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { first, catchError, map } from 'rxjs/operators';
 import { ApiService } from '../service/api.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+    error = false;
+    errorMessage: string;
+    loginForm: FormGroup;
+    loading = false;
+    submitted = false;
 
-  loginForm: FormGroup;
-  loading = false;
-  submitted = false;
-  returnUrl: string;
+    constructor(
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private router: Router,
+        private apiService: ApiService
+    ) {
+        // redirect to home if already logged in
+        if (sessionStorage.getItem('username')) {
+            this.router.navigate(['/home']);
+        }
+    }
 
-  constructor(
-      private formBuilder: FormBuilder,
-      private route: ActivatedRoute,
-      private router: Router,
-      private apiService: ApiService
-  ) {
-      // redirect to home if already logged in
-      if (this.apiService.currentUserValue) {
-          this.router.navigate(['/home']);
-      }
-  }
+    ngOnInit() {
+        this.loginForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required]
+        });
+    }
 
-  ngOnInit() {
-      this.loginForm = this.formBuilder.group({
-          username: ['', Validators.required],
-          password: ['', Validators.required]
-      });
+    // convenience getter for easy access to form fields
+    get formInputs() { return this.loginForm.controls; }
 
-      // get return url from route parameters or default to '/'
-      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-  }
+    onSubmit() {
+        this.submitted = true;
 
-  // convenience getter for easy access to form fields
-  get formInputs() { return this.loginForm.controls; }
+        // stop here if form is invalid
+        if (this.loginForm.invalid) {
+            return;
+        }
 
-  onSubmit() {
-      this.submitted = true;
+        this.loading = true;
+        this.apiService.login(this.formInputs.username.value, this.formInputs.password.value)
+            .pipe()
+            .subscribe(
+                data => {
+                    sessionStorage.setItem('username', this.formInputs.username.value);
+                    this.apiService.register(this.formInputs.username.value);
+                    this.router.navigate(['/home']);
+                },
+                error => {
+                    console.log('error', error);
+                    this.error = true;
+                    this.errorMessage = 'Error logging in. Please Try Again';
+                    console.log('navigating');
+                    this.router.navigate(['/']);
+                });
+    }
 
-      // stop here if form is invalid
-      if (this.loginForm.invalid) {
-        return;
-      }
-
-      console.log("formInputs", this.formInputs)
-      this.loading = true;
-      this.router.navigate([this.returnUrl]);
-      this.apiService.login(this.formInputs.username.value, this.formInputs.password.value)
-          .pipe(first())
-          .subscribe(
-              data => {
-                  this.router.navigate([this.returnUrl]);
-              },
-              error => {
-                  this.loading = false;
-              });
-  }
-
+    hasError(): boolean {
+        return this.error;
+    }
 }
 
 
