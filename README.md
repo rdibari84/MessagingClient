@@ -29,3 +29,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 npm i ngx-socket-io --save
 socket.io-client
+
+
+docker build . -t client
+docker run --rm -p4200:4200 client
