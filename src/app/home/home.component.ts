@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.currentUserId = sessionStorage.getItem('username');
+    this.apiService.register(this.currentUserId);
     this.subscription = this.apiService
       .getAllUsers()
       .subscribe(

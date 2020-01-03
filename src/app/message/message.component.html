@@ -1,6 +1,8 @@
 <app-header></app-header>
 <div class="messages">
-    <div>message works!</div>
+    <div class="space" *ngIf="hasMessage()">
+        <div>{{fromUsername}}:{{recievedMessage}}</div>
+    </div>
     <input [(ngModel)]="message" />
     <button (click)="sendMessage()">Send</button>
 </div>

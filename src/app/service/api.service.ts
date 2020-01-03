@@ -39,19 +39,23 @@ export class ApiService {
     this.socket.emit('register', username);
   }
 
-  sendMessage(username: string, message: string) {
-    this.socket.emit('message', { 'username': username, 'message': message });
+  sendMessage(username: string, fromUsername: string, message: string) {
+    const msg = new IMessage(username, fromUsername, message);
+    console.log('sending message:', msg);
+    this.socket.emit('message', msg);
   }
 
-  getMessage(): Observable<string> {
+  getMessage(): Observable<IMessage> {
     return Observable.create((observer) => {
-      this.socket.on('message', (message) => {
-        observer.next(message);
+      this.socket.on('message', (msg: IMessage) => {
+        console.log('received message', msg);
+        observer.next(msg);
       });
     });
   }
 
   getAllUsers(): Observable<string[]> {
+    console.log("getAllUsers");
     return Observable.create((observer) => {
       this.socket.on('users', (user) => {
         observer.next(user);
@@ -80,4 +84,8 @@ export interface ApiError {
   description: string,
   status_code: number,
   errors: any | null,
+}
+
+export class IMessage {
+  constructor(public toUsername: string, public fromUsername: string, public message: string) { }
 }
