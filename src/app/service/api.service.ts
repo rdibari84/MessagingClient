@@ -42,15 +42,15 @@ export class ApiService {
     this.socket.emit('register', username);
   }
 
-  sendMessage(username: string, fromUsername: string, message: string) {
-    const msg = new IMessage(username, fromUsername, message);
+  sendMessage(toUsername: string, fromUsername: string, message: string, timestamp: string) {
+    const msg = new IMessage(toUsername, fromUsername, message, timestamp);
     console.log('sending message:', msg);
     this.socket.emit('message', msg);
   }
 
   getMessageHistory(username: string, fromUsername: string): Observable<IMessage[]> {
     console.log('message-history');
-    const msg = new IMessage(username, fromUsername, '');
+    const msg = new IMessage(username, fromUsername, '', '');
     this.socket.emit('message-history', msg);
     return Observable.create((observer) => {
       this.socket.on('message-history', (msgs: IMessage[]) => {
@@ -102,5 +102,9 @@ export interface ApiError {
 }
 
 export class IMessage {
-  constructor(public toUsername: string, public fromUsername: string, public message: string) { }
+  constructor(
+    public toUsername: string,
+    public fromUsername: string,
+    public message: string,
+    public timestamp: string) { }
 }

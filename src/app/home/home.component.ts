@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnChanges, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   currentUserId: string;
   loggedInUsers: string[];
   subscription: Subscription;
@@ -33,10 +33,6 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
           console.log(error);
         }
       );
-  }
-
-  ngOnChanges(chages: SimpleChanges) {
-
   }
 
   ngOnDestroy() {

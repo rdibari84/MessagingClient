@@ -20,11 +20,18 @@ export class MessageComponent implements OnInit, OnDestroy {
     private router: Router,
   ) {
     this.chattingWithPerson = this.router.url.split('/message/')[1];
+    console.log('this.chattingWithPerson', this.chattingWithPerson);
   }
 
   ngOnInit() {
-    console.log("ngOnInit");
-    this.apiService.getMessageHistory(this.router.url.split('/message/')[1], sessionStorage.getItem('username'));
+    console.log('ngOnInit');
+    this.apiService.getMessageHistory(this.router.url.split('/message/')[1], sessionStorage.getItem('username'))
+      .subscribe(
+        (msgs: IMessage[]) => this.recievedMessages = msgs,
+        error => {
+          console.log(error);
+        }
+      );
     this.subscription = this.apiService.getMessage()
       .subscribe(
         (msgs: IMessage[]) => this.recievedMessages = msgs,
@@ -39,7 +46,7 @@ export class MessageComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    this.apiService.sendMessage(this.router.url.split('/message/')[1], sessionStorage.getItem('username'), this.messageToSend);
+    this.apiService.sendMessage(this.chattingWithPerson, sessionStorage.getItem('username'), this.messageToSend, new Date().toTimeString());
   }
 
   hasMessage(): boolean {

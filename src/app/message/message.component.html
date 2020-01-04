@@ -3,6 +3,7 @@
 <div class="messages">
     <div class="add-margin" *ngIf="hasMessage()">
         <div class="message" *ngFor="let recievedMessage of recievedMessages">
+            <div class="timestamp">{{recievedMessage.timestamp}}</div>
             <div class="from-user">{{recievedMessage.fromUsername}}:</div>
             <div class="speech-bubble">{{recievedMessage.message}}</div>
         </div>
