@@ -13,6 +13,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { ApiService } from './service/api.service';
 import { StorageModule } from '@ngx-pwa/local-storage';
 import { MessageComponent } from './message/message.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MessageComponent } from './message/message.component';
     LoginComponent,
     HeaderComponent,
     LogoutComponent,
-    MessageComponent
+    MessageComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

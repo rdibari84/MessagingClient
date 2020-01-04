@@ -1,8 +1,58 @@
-.messages {
+
+.add-margin-top-left {
     margin-top: 7%;
     margin-left: 2%;
 }
 
-.space {
+.messages {
+    overflow-y: scroll;
+    position: relative;
+    height: 75%;
+    border: 1px solid black
+}
+
+.message {
+    margin-top: .5%;
+}
+
+.bottom {
+    position: absolute;
+    width: 100%;
+    top: 92%;
+}
+
+.input {
+    position: relative;
+    display: inline-block;
+    width: 90%;
+    margin-left: 1.5%;
+}
+
+.send {
+    display: inline-block;
+}
+
+.add-margin {
     margin: 1%;
 }
+
+.speech-bubble {
+    margin-left: .5%;
+    display: inline-block;
+	position: relative;
+	background: #00aabb;
+	border-radius: .4em;
+}
+
+.from-user {
+    display: inline-block;
+}
+
+.add-left-padding {
+    padding-left: 1%;
+}
+
+.add-top-padding {
+    padding-top: 2%;
+}
+

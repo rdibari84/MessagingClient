@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy, SimpleChange, SimpleChanges } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { Observable, Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,15 +8,15 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   currentUserId: string;
   loggedInUsers: string[];
   subscription: Subscription;
-
+  constructed: boolean;
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
-    private router: Router, ) {
+    private router: Router) {
   }
 
   ngOnInit() {
@@ -33,6 +33,10 @@ export class HomeComponent implements OnInit, OnDestroy {
           console.log(error);
         }
       );
+  }
+
+  ngOnChanges(chages: SimpleChanges) {
+
   }
 
   ngOnDestroy() {

@@ -1,8 +1,14 @@
 <app-header></app-header>
+<h3 class="add-margin-top-left add-top-padding">Messaging: {{ chattingWithPerson }}</h3>
 <div class="messages">
-    <div class="space" *ngIf="hasMessage()">
-        <div>{{fromUsername}}:{{recievedMessage}}</div>
+    <div class="add-margin" *ngIf="hasMessage()">
+        <div class="message" *ngFor="let recievedMessage of recievedMessages">
+            <div class="from-user">{{recievedMessage.fromUsername}}:</div>
+            <div class="speech-bubble">{{recievedMessage.message}}</div>
+        </div>
     </div>
-    <input [(ngModel)]="message" />
-    <button (click)="sendMessage()">Send</button>
+    <div class="bottom">
+        <input class="input" [(ngModel)]="messageToSend" />
+        <button class="send" (click)="sendMessage()">Send</button>
+    </div>
 </div>

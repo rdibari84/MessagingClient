@@ -9,29 +9,25 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent implements OnInit, OnDestroy {
-  recievedMessage: string;
-  message: string;
-  toUsername: string;
-  fromUsername: string;
+  recievedMessages: IMessage[] = [];
+  messageToSend: string;
   subscription: Subscription;
+  chattingWithPerson: string;
 
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) {
+    this.chattingWithPerson = this.router.url.split('/message/')[1];
+  }
 
   ngOnInit() {
-    console.log("ngOnInit")
+    console.log("ngOnInit");
+    this.apiService.getMessageHistory(this.router.url.split('/message/')[1], sessionStorage.getItem('username'));
     this.subscription = this.apiService.getMessage()
       .subscribe(
-        (msg: IMessage) => {
-          console.log('got message', msg);
-          this.recievedMessage = msg.message;
-          this.fromUsername = msg.fromUsername;
-          this.toUsername = msg.toUsername;
-          console.log('this.recievedMessage', this.recievedMessage);
-        },
+        (msgs: IMessage[]) => this.recievedMessages = msgs,
         error => {
           console.log(error);
         }
@@ -43,10 +39,10 @@ export class MessageComponent implements OnInit, OnDestroy {
   }
 
   sendMessage() {
-    this.apiService.sendMessage(this.router.url.split('/message/')[1], sessionStorage.getItem('username'), this.message);
+    this.apiService.sendMessage(this.router.url.split('/message/')[1], sessionStorage.getItem('username'), this.messageToSend);
   }
 
   hasMessage(): boolean {
-    return this.recievedMessage !== undefined;
+    return this.recievedMessages.length > 0;
   }
 }

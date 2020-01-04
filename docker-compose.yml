@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    image: messaging-app-client:client
+    build:
+      context: .
+      dockerfile: Dockerfile 
+      args:  
+      - configuration=
+    ports:
+      - "4200:4200"
+    container_name: messaging-app-client  
