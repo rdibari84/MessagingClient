@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first, catchError, map } from 'rxjs/operators';
 import { ApiService } from '../service/api.service';
 import { AlertService } from '../service/alert.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
-    navigationSubscription;
+    navigationSubscription: Subscription;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -47,9 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.navigationSubscription) {
-            this.navigationSubscription.unsubscribe();
-        }
+        this.navigationSubscription.unsubscribe();
     }
 
     // convenience getter for easy access to form fields
@@ -69,7 +68,6 @@ export class LoginComponent implements OnInit, OnDestroy {
             .subscribe(
                 data => {
                     sessionStorage.setItem('username', this.formInputs.username.value);
-                    //this.apiService.register(this.formInputs.username.value);
                     this.router.navigate(['/home']);
                 },
                 error => {

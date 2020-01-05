@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { of, Observable, throwError } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import * as io from 'socket.io-client';
 import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -44,12 +45,10 @@ export class ApiService {
 
   sendMessage(toUsername: string, fromUsername: string, message: string, timestamp: string) {
     const msg = new IMessage(toUsername, fromUsername, message, timestamp);
-    console.log('sending message:', msg);
     this.socket.emit('message', msg);
   }
 
   getMessageHistory(username: string, fromUsername: string): Observable<IMessage[]> {
-    console.log('message-history');
     const msg = new IMessage(username, fromUsername, '', '');
     this.socket.emit('message-history', msg);
     return Observable.create((observer) => {
@@ -63,14 +62,12 @@ export class ApiService {
   getMessage(): Observable<IMessage[]> {
     return Observable.create((observer) => {
       this.socket.on('message', (msg: IMessage[]) => {
-        console.log('received message', msg);
         observer.next(msg);
       });
     });
   }
 
   getAllUsers(): Observable<string[]> {
-    console.log("getAllUsers");
     return Observable.create((observer) => {
       this.socket.on('users', (user) => {
         observer.next(user);
@@ -96,9 +93,9 @@ export class ApiService {
 }
 
 export interface ApiError {
-  description: string,
-  status_code: number,
-  errors: any | null,
+  description: string;
+  status_code: number;
+  errors: any | null;
 }
 
 export class IMessage {

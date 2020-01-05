@@ -14,7 +14,6 @@ export class AlertService {
                 if (this.keepAfterRouteChange) {
                     this.keepAfterRouteChange = false;
                 } else {
-                    // clear alert message
                     this.clear();
                 }
             }
@@ -36,7 +35,6 @@ export class AlertService {
     }
 
     clear() {
-        // clear by calling subject.next() without parameters
         this.subject.next();
     }
 }

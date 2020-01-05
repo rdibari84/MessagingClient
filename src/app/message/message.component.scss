@@ -15,8 +15,9 @@
     margin-top: .5%;
 }
 
-.bottom {
-    position: absolute;
+.send-message {
+    margin-top:1px;
+    position: relative;
     width: 100%;
     top: 92%;
 }
@@ -40,8 +41,9 @@
     margin-left: .5%;
     display: inline-block;
 	position: relative;
-	background: #00aabb;
-	border-radius: .4em;
+	background:lightblue;
+    border-radius: .4em;
+    padding: 1px;
 }
 
 .from-user {
@@ -57,5 +59,6 @@
 }
 
 .timestamp {
-    font-size: x-small;
+    font-size: xx-small;
+    float: right;
 }

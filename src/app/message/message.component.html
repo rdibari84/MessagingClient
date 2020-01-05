@@ -1,15 +1,17 @@
 <app-header></app-header>
-<h3 class="add-margin-top-left add-top-padding">Messaging: {{ chattingWithPerson }}</h3>
+<h3 class="add-margin-top-left add-top-padding">Messaging: {{ toUser }}</h3>
 <div class="messages">
     <div class="add-margin" *ngIf="hasMessage()">
         <div class="message" *ngFor="let recievedMessage of recievedMessages">
-            <div class="timestamp">{{recievedMessage.timestamp}}</div>
             <div class="from-user">{{recievedMessage.fromUsername}}:</div>
             <div class="speech-bubble">{{recievedMessage.message}}</div>
+            <div class="timestamp">{{recievedMessage.timestamp}}</div>
         </div>
     </div>
-    <div class="bottom">
-        <input class="input" [(ngModel)]="messageToSend" />
-        <button class="send" (click)="sendMessage()">Send</button>
-    </div>
+</div>
+<div class="send-message">
+    <form [formGroup]="messageForm" (ngSubmit)="sendMessage()">
+        <input type="text" formControlName="messageToSend" class="input">
+        <button class="send">Send</button>
+    </form>
 </div>
