@@ -1,20 +1,23 @@
 # MessagingApp
-This project is an angular typescript application.
-It uses twitter bootstrap for design, angular routing for navigation and httpclient/ socket.io for its communication with the API.
+This project is an messaging application written in angular typescript.
 
-The API is a separate project, located at `git clone https://github.com/rdibari84/MessagingServer`
+It uses twitter bootstrap for design, angular routing for navigation and `httpclient`& `socket.io` for its communication with the API.
+
+The API is a separate project, located at https://github.com/rdibari84/MessagingServer
 
 The Application contains a login page, home page and a messaging page. 
-It additionally defines a logout url and an alerting service and api service.
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
+
+It additionally defines a logout url, an alerting service and api service.
+
+This project was generated with using angular cli version 8.3.21.
 
 ## To Run
+`docker-compose up -d --build`
+- navigate to http://localhost:4200
+
 PreReqs: 
 - Docker and docker-compose are installed
 - The associated api is also running
-
-`docker-compose up -d --build`
-navigate to http://localhost:4200
 
 ## To Stop
 `docker-compose down`
@@ -26,9 +29,32 @@ username: corgibutt, password: corgibutt
 username: nightowl, password: nightowl
 ```
 
+## To Use
+1. (tab1) Open new tab, navigate to http://localhost:4200 & login as `sheepppl`
+2. (tab2) Open new tab, navigate to http://localhost:4200 & login as `corgibutt`
+3. (tab2) Click "Message" `sheepppl`
+4. (tab1) Click "Message" `corgibutt`
+5. Start messaging
+
+Other things to note:
+1. Refresh still displays messages
+2. Navigating back to home and then again to messages shows message history
+3. Logout redirects to login and removes username from sessionStorage
+
 ## Design Considerations
-- The websocket connection is instansiated on the construction of the apiService
-- The application uses sessionStorage to save the username; allows the user to be known on page refresh
+- Chose Angular because it's a standard framework with lots of resources and I have past experience using it
+- Uses a REST call for login and websockets for everything else to enable real time updates
+- The websocket connection is instantiated once, on construction of the apiService
+- Uses a sessionStore to save login information on the browser
+
+## Limitations
+- This application only supports messaging one other user at a time
+- There is no notification for when a new message is sent
+- A user must be on the "message" page to see the messages
+- The api limits the number of messages it sends back; need to rethink 
+- Styling needs to be fixed
+
+## Description Of Functionality
 - The login page on successful login 
     - Saves a user to the sessionStore
     - "registers" a user, allowing the API to map a user to it's websocket connection
@@ -43,8 +69,3 @@ username: nightowl, password: nightowl
     - Calls the api to remove the user websocket connection
     - Removes the user from the session store
     - Navigates to the login page
-
-## Limitations
-- This application only supports messaging one other user at a time
-- There is no notification for when a new message is sent
-- Styling
