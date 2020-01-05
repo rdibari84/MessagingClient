@@ -1,23 +1,13 @@
 # MessagingApp
-This project is an messaging application written in angular typescript.
-
-It uses twitter bootstrap for design, angular routing for navigation and `httpclient`& `socket.io` for its communication with the API.
-
-The API is a separate project, located at https://github.com/rdibari84/MessagingServer
-
-The Application contains a login page, home page and a messaging page. 
-
-It additionally defines a logout url, an alerting service and api service.
-
-This project was generated with using angular cli version 8.3.21.
+This project is an messaging application written in angular typescript. It uses twitter bootstrap for design, angular routing for navigation and `httpclient`& `socket.io` for its communication with the API. The API is a separate project, located at https://github.com/rdibari84/MessagingServer. This project was generated with using angular cli version 8.3.21.
 
 ## To Run
-`docker-compose up -d --build`
-- navigate to http://localhost:4200
-
 PreReqs: 
 - Docker and docker-compose are installed
 - The associated api is also running
+
+`docker-compose up -d --build`
+- navigate to http://localhost:4200
 
 ## To Stop
 `docker-compose down`
@@ -40,6 +30,7 @@ Other things to note:
 1. Refresh still displays messages
 2. Navigating back to home and then again to messages shows message history
 3. Logout redirects to login and removes username from sessionStorage
+2. (tab3) Open new tab, navigate to http://localhost:4200 & login as `nightowl` and notice list of online users update
 
 ## Design Considerations
 - Chose Angular because it's a standard framework with lots of resources and I have past experience using it
