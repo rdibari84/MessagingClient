@@ -53,7 +53,6 @@ export class ApiService {
     this.socket.emit('message-history', msg);
     return Observable.create((observer) => {
       this.socket.on('message-history', (msgs: IMessage[]) => {
-        console.log('received message-history', msgs);
         observer.next(msgs);
       });
     });

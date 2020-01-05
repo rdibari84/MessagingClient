@@ -31,15 +31,12 @@ export class MessageComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationEnd &&
         event.id === 1
       ) {
-        console.log('browser refreshed');
         this.apiService.register(this.fromUser);
       }
     });
   }
 
   ngOnInit() {
-    console.log('ngOnInit');
-
     this.messageForm = this.formBuilder.group({
       messageToSend: ['']
     });
