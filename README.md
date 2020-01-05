@@ -11,7 +11,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## To Run
 PreReqs: 
 - Docker and docker-compose are installed
-- The associated api is also running at http://localhost:3000
+- The associated api is also running
 
 `docker-compose up -d --build`
 navigate to http://localhost:4200
@@ -20,9 +20,11 @@ navigate to http://localhost:4200
 `docker-compose down`
 
 ## Hard Coded Users:
+```
 username: sheepppl, password: sheepppl
 username: corgibutt, password: corgibutt
 username: nightowl, password: nightowl
+```
 
 ## Design Considerations
 - The websocket connection is instansiated on the construction of the apiService
