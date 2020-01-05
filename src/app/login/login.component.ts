@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             .subscribe(
                 data => {
                     sessionStorage.setItem('username', this.formInputs.username.value);
+                    this.apiService.register(this.formInputs.username.value);
                     this.router.navigate(['/home']);
                 },
                 error => {

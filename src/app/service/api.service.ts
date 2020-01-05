@@ -68,8 +68,9 @@ export class ApiService {
   }
 
   getAllUsers(): Observable<string[]> {
+    this.socket.emit('get-all-users');
     return Observable.create((observer) => {
-      this.socket.on('users', (user) => {
+      this.socket.on('get-all-users', (user) => {
         observer.next(user);
       });
     });
