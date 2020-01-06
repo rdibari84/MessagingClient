@@ -44,6 +44,7 @@ Other things to note:
 - A user must be on the "message" page to see the messages
 - The api limits the number of messages it sends back; need to rethink 
 - Styling needs to be fixed
+- No unit tests; need to go back and write
 
 ## Description Of Functionality
 - The login page on successful login 
