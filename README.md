@@ -45,6 +45,8 @@ Other things to note:
 - The api limits the number of messages it sends back; need to rethink 
 - Styling needs to be fixed
 - No unit tests; need to go back and write
+- Update templates to bind to the observables using an async pipe instead of subscribing and managing subscriptions manually
+- Investiage using Subjects. They're both observables and observers and can push out new values as they recieve them from the websocket
 
 ## Description Of Functionality
 - The login page on successful login 
